@@ -1,0 +1,13 @@
+s, p, l=[], [], []
+a=["a", "n", "t", "o", "n"]
+for i in range(int(input())):
+    s.append(input())
+for j in range(len(s)):
+    count=0
+    for i in range(len(a)):
+        if s[j].find(a[i])>-1:
+            count+=1
+            s[j]=s[j][s[j].find(a[i])+1:]
+    if count==5:
+        p.append(j+1)
+print(*p)
