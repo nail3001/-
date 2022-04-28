@@ -1,0 +1,89 @@
+eng_lower_alphabet = [i for i in 'abcdefghijklmnopqrstuvwxyz']
+eng_upper_alphabet = [i for i in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
+rus_lower_alphabet = [i for i in "абвгдежзийклмнопрстуфхцчшщъыьэюя"]
+rus_upper_alphabet = [i for i in "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"]
+
+direction = input("Что нам нужно сделать: шифровать (ш) или дешифровать(д)\n")
+while direction != "ш" and direction != "д":
+    direction = input("Вводи нормально, еблан\n")
+
+language = input("Какой нужен язык: русский (р) или английский (а)?\n")
+while language != "р" and language != "а":
+    language = input("Вводи нормально, еблан\n")
+
+step_choice=input("Введите ключ или введите 'c', если хотите стандартный ключ шифрования (длина каждого слова)\n")
+while step_choice.isdigit()==False and step_choice != "с":
+    step_choice = input("Вводи нормально, еблан\n")
+
+def cesair(d, l, s):
+    text = input("Введи текст\n").split()
+    print(text)
+    encrypted_text = []
+    for j in text:
+        m=j
+        if s =="с":
+            for t in range(0, len(m)+1):
+                q = m[t:]
+                if q.isalpha()==True:
+                    m=q
+                    break
+                q = m[:-t]
+                if q.isalpha()==True:
+                    m = q
+                    break
+                q = m[t:-t]
+                if q.isalpha() == True:
+                    m = q
+                    break
+            step=len(m)
+        else:
+            step=int(s)
+        encrypted_word = []
+        if l == "р":
+            s_word_i = [i for i in j]
+            for k in s_word_i:
+                if k in rus_lower_alphabet:
+                    if d == "ш":
+                        p = k
+                        encrypted_word.append(rus_lower_alphabet[(rus_lower_alphabet.index(p) + step) % 32])
+                    elif d == "д":
+                        p = k
+                        encrypted_word.append(rus_lower_alphabet[(rus_lower_alphabet.index(p) - step) % 32])
+                elif k in rus_upper_alphabet:
+                    if d == "ш":
+                        p = k
+                        encrypted_word.append(rus_upper_alphabet[(rus_upper_alphabet.index(p) + step) % 32])
+                    elif d == "д":
+                        p = k
+                        encrypted_word.append(rus_upper_alphabet[(rus_upper_alphabet.index(p) - step) % 32])
+                else:
+                    encrypted_word.append(k)
+            encrypted_word = "".join(encrypted_word)
+            print(encrypted_word)
+            encrypted_text.append(encrypted_word)
+        else:
+            s_word_i = [i for i in j]
+            for k in s_word_i:
+                if k in eng_lower_alphabet:
+                    if d == "ш":
+                        p = k
+                        encrypted_word += eng_lower_alphabet[(eng_lower_alphabet.index(p) + step) % 26]
+                    elif d == "д":
+                        p = k
+                        encrypted_word += eng_lower_alphabet[(eng_lower_alphabet.index(p) - step) % 26]
+                elif k in eng_upper_alphabet:
+                    if d == "ш":
+                        p = k
+                        encrypted_word += eng_upper_alphabet[(eng_upper_alphabet.index(p) + step) % 26]
+                    elif d == "д":
+                        p = k
+                        encrypted_word += eng_upper_alphabet[(eng_upper_alphabet.index(p) - step) % 26]
+                else:
+                    encrypted_word.append(k)
+            encrypted_word="".join(encrypted_word)
+            print(encrypted_word)
+            encrypted_text.append(encrypted_word)
+    print(encrypted_text)
+    print(*encrypted_text, sep=" ")
+
+cesair(direction, language, step_choice)
