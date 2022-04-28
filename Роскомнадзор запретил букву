@@ -1,0 +1,16 @@
+rus_lower_alphabet = [i for i in "абвгдежзийклмнопрстуфхцчшщъыьэюя"]
+
+word = input() + ' запретил букву'
+for i in range(len(rus_lower_alphabet)):
+    if rus_lower_alphabet[i] in word:
+        word=word+" "+rus_lower_alphabet[i]
+        if len(word)==2:
+            break
+        print(word)
+        while rus_lower_alphabet[i] in word[:-1]:
+            position=word.find(rus_lower_alphabet[i])
+            if word[position+1]==word[position-1]==" ":
+                word=word[:position]+word[position+2:]
+            else:
+                word=word[:position]+word[position+1:]
+        word=word[:-1].strip()
