@@ -1,0 +1,42 @@
+def enter_matrix_string(rows): #только если даны строки
+    matrix = []
+    for i in range(rows):
+        matrix_rows = [int(num) for num in input().split()]
+        matrix.append(matrix_rows)
+    return matrix
+
+n=int(input())
+a=enter_matrix_string(n)
+
+def magic_square(matrix):
+    points=[int(i) for i in range(1,len(matrix)**2+1,1)] #значения, которые должны быть до n^2 включительно
+    matrix_list=[]
+    for i in range(len(matrix)):
+        matrix_list+=matrix[i]
+    for i in range(len(points)): #проверяем, чтобы они все были в массиве
+        if points[i] not in matrix_list:
+            return print("NO")
+    t=[]
+    for i in range(len(matrix)):
+        t.append(sum(matrix[i]))
+    for j in range(len(matrix[0])):
+        s=0
+        for i in range(len(matrix)):
+            s+=matrix[i][j]
+        t.append(s)
+    for l in range(2):
+        k=0
+        if l==0:
+            for i in range(len(matrix)):
+                k+=matrix[i][i];
+            t.append(k)
+        else:
+            for i in range(len(matrix)):
+                k+=matrix[i][len(matrix)-1-i]
+            t.append(k)
+    for i in range(len(t)-1):
+        if t[i]!=t[i+1]:
+            return print("NO")
+    return print("YES")
+
+magic_square(a)
