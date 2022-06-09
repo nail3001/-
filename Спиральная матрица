@@ -1,0 +1,38 @@
+size=[int(i) for i in input().split()]
+n=size[0]
+m=size[1]
+t=[[0 for j in range(m)] for i in range(n)]
+M,N=m,n
+k=s=0
+counter=iter=0
+count=1
+while (counter!=m*n):
+    for s in range(iter,M-iter):
+        t[k][s]=count
+        count+=1
+        counter+=1
+    iter+=1
+    if counter==m*n:
+        break
+    for k in range(iter,N-iter+1):
+        t[k][s]=count
+        count+=1
+        counter += 1
+    if counter==m*n:
+        break
+    for s in range(M-1-iter,iter-2,-1):
+        t[k][s]=count
+        count+=1
+        counter += 1
+    if counter==m*n:
+        break
+    for k in range(N-1-iter,iter-1,-1):
+        t[k][s]=count
+        count+=1
+        counter += 1
+    if counter==m*n:
+        break
+for i in range(n):
+    for j in range(m):
+        print(str(t[i][j]).ljust(3), end=" ")
+    print()
